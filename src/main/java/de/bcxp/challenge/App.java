@@ -1,10 +1,10 @@
 package de.bcxp.challenge;
 
 import de.bcxp.challenge.country.Country;
-import de.bcxp.challenge.country.CountriesAnalysis;
+import de.bcxp.challenge.country.CountriesTools;
 import de.bcxp.challenge.reader.CSVReader;
 import de.bcxp.challenge.weather.WeatherDatapoint;
-import de.bcxp.challenge.weather.WeatherAnalysis;
+import de.bcxp.challenge.weather.WeatherTools;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,35 +29,19 @@ public final class App {
         logger.setLevel(Level.ALL);
 
         CSVReader csvReader = new CSVReader();
+
+        // Loading and initialising the weather objects
         LinkedList<HashMap> weatherDataList = csvReader.readFile("/de/bcxp/challenge/weather.csv", ",");
-        LinkedList<WeatherDatapoint> weatherDatapointList = new LinkedList<>();
+        LinkedList<WeatherDatapoint> weatherDatapointList = WeatherTools.createObjectList(weatherDataList);
 
-        for (HashMap value : weatherDataList) {
-            try {
-                weatherDatapointList.add(new WeatherDatapoint(value));
-            } catch (NoSuchFieldException | NumberFormatException e) {
-                e.printStackTrace();
-                return;
-            }
-        }
-
-
+        // Loading and initialising the country objects
         LinkedList<HashMap> countriesDataList = csvReader.readFile("/de/bcxp/challenge/countries.csv", ";");
-        LinkedList<Country> countriesObjectList = new LinkedList<>();
+        LinkedList<Country> countriesObjectList = CountriesTools.createObjectList(countriesDataList);
 
-        for (HashMap value : countriesDataList) {
-            try {
-                countriesObjectList.add(new Country(value));
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-                return;
-            }
-        }
-
-        String dayWithSmallestTempSpread = String.valueOf(WeatherAnalysis.getDayWithSmallestTemperatureSpread(weatherDatapointList));     // Your day analysis function call …
+        String dayWithSmallestTempSpread = String.valueOf(WeatherTools.getDayWithSmallestTemperatureSpread(weatherDatapointList));     // Your day analysis function call …
         System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread);
 
-        String countryWithHighestPopulationDensity = CountriesAnalysis.getCountryWithHighestPopulationDensity(countriesObjectList); // Your population density analysis function call …
+        String countryWithHighestPopulationDensity = CountriesTools.getCountryWithHighestPopulationDensity(countriesObjectList); // Your population density analysis function call …
         System.out.printf("Country with highest population density: %s%n", countryWithHighestPopulationDensity);
     }
 }

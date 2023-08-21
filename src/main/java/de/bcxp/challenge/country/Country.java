@@ -28,10 +28,6 @@ public class Country {
         } else {
             Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
             logger.severe("Missing fields in the input map for creating a country object.");
-            System.out.println(map);
-            System.out.println(map.containsKey("Name"));
-            System.out.println(map.containsKey("Population"));
-            System.out.println(map.containsKey("Area (km²)"));
             throw new NoSuchFieldException();
         }
     }

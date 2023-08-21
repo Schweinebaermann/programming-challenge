@@ -1,10 +1,10 @@
 package de.bcxp.challenge;
 
 import de.bcxp.challenge.country.Country;
-import de.bcxp.challenge.country.CountriesAnalysis;
+import de.bcxp.challenge.country.CountriesTools;
 import de.bcxp.challenge.reader.CSVReader;
 import de.bcxp.challenge.weather.WeatherDatapoint;
-import de.bcxp.challenge.weather.WeatherAnalysis;
+import de.bcxp.challenge.weather.WeatherTools;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -48,7 +48,7 @@ class AppTest {
 
         assertEquals(54, weatherDatapointList.get(0).getTemperatureSpread(), "Incorrectly determined temperature spread");
 
-        int dayWithSmallestTempSpread = WeatherAnalysis.getDayWithSmallestTemperatureSpread(weatherDatapointList);
+        int dayWithSmallestTempSpread = WeatherTools.getDayWithSmallestTemperatureSpread(weatherDatapointList);
 
         assertEquals(15, dayWithSmallestTempSpread, "Wrong determined day with minimum temperature spread");
 
@@ -72,7 +72,7 @@ class AppTest {
 
         assertEquals(107.5, countryObjectList.get(0).getPopulationDensity(), "Incorrectly determined population density");
 
-        String countryWithHighestPopulationDensity = CountriesAnalysis.getCountryWithHighestPopulationDensity(countryObjectList);
+        String countryWithHighestPopulationDensity = CountriesTools.getCountryWithHighestPopulationDensity(countryObjectList);
 
         assertEquals("Test1", countryWithHighestPopulationDensity, "Wrong determined country name with the highest population density");
 
